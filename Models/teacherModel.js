@@ -2,27 +2,22 @@ const mongoose=require('mongoose')
 const bcrypt = require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const userSchema=new mongoose.Schema({
-    email:{
+    Teacher_Name:{
         type:String,
         require:true
     },
-    password:{
+    Depterment:{
         type:String,
         require:true
     },
-    confrompassword:{
+    Email:{
         type:String,
         require:true
     },
-    idDelete:{
+    Phone:{
         type:String,
-        default:"no",
-        require:false
+        require:true
     },
-    otp:{
-        type:String,
-        default:null
-      },
 },  {
     timestamps: true,
   })
@@ -55,5 +50,5 @@ userSchema.pre("save",async function(next){
 
 
 
-const userModel=mongoose.model('AdminLogin',userSchema);
+const userModel=mongoose.model('Teacher',userSchema);
 module.exports=userModel

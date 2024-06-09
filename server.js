@@ -6,15 +6,22 @@ const DataBase=require('./Database/db')
 const port = process.env.SERVER_PORT || 3002;
 const app = express();
 app.use(express.json());
+
+//admin route
 const adminRouter=require('./Router/adminRoute')
 app.use('/admin',adminRouter)
-// app.use(
-//     cors({
-//       origin: "http://localhost:3000",
-//       methods: ["GET", "POST", "PUT", "DELETE"],
-//       allowedHeaders: ["Content-Type", "Authorization"], // Allow only specific headers
-//     })
-//   );
+
+//teacher route
+const teacherRouter=require('./Router/teacherRoute')
+app.use(teacherRouter);  
+
+app.use(
+    cors({
+      origin: "http://localhost:3000",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"], // Allow only specific headers
+    })
+  );
   
   app.listen(port, () => {
     console.log(`Server is running on port : ${port}`);
