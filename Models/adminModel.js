@@ -19,6 +19,10 @@ const userSchema=new mongoose.Schema({
         default:"no",
         require:false
     },
+    image: {
+        type: String,
+        required: true,
+      },
     otp:{
         type:String,
         default:null

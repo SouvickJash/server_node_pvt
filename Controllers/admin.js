@@ -12,6 +12,9 @@ const createUser = async (req, res) => {
     console.log("++++", req.body);
 
     const user = new AdminModel(req.body);
+    if (req.file) {
+      user.image = req.file.path;
+    }
     const result = await user.save();
     if (result) {
       return res.status(201).json({
@@ -74,7 +77,7 @@ const login = async (req, res) => {
           } else {
             return res.status(200).json({
               status: 200,
-              message: "login successfull++++++++",
+              message: "login successfull",
               info: [userLogin],
               token: token,
             });
@@ -120,6 +123,31 @@ const updatePassword = async (req, res) => {
       return res.status(404).json({
         status: 404,
         message: "user_id not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 500,
+      message: "error",
+    });
+  }
+};
+
+//get detais
+const getadmin = async (req, res) => {
+  try {
+    const data = await AdminModel.find();
+    if (data) {
+      return res.status(200).json({
+        status: 200,
+        message: "Data fetch successfully",
+        userData: data,
+      });
+    } else {
+      return res.status(404).json({
+        status: 404,
+        message: "Data not found",
       });
     }
   } catch (error) {
@@ -281,6 +309,7 @@ module.exports = {
   login,
   updatePassword,
   getAdminData,
+  getadmin,
   forgetPassword,
   resetPassword,
 };

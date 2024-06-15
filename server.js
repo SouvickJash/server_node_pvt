@@ -6,7 +6,8 @@ const DataBase=require('./Database/db')
 const port = process.env.SERVER_PORT || 3002;
 const app = express();
 app.use(express.json());
-
+//image
+app.use("/Uploads", express.static("Uploads"));
 //admin route
 const adminRouter=require('./Router/adminRoute')
 app.use('/admin',adminRouter)
