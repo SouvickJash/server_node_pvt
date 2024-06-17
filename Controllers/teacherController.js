@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 // const bcrypt=require('bcryptjs');
 const TeacherModel = require("../Models/teacherModel");
 const { Validator } = require("node-input-validator");
+const studentModel = require("../Models/studentModel");
 
 // create teacher
 // const createTeacher = async (req, res) => {
@@ -85,13 +86,15 @@ const getTreacher = async (req, res) => {
 //get information(length)
 const getInformation = async (req, res) => {
   try {
-    const result = await TeacherModel.find();
-    //   const studentresult=await
-    // console.log("total teacher", result.length);
+    const teacherCount = await TeacherModel.find();
+    // const studentCount=await studentModel.find();
+   
+    // res.json({ totalTeacher: teacherCount, totalStudent: studentCount });
     return res.status(200).json({
       status: 200,
       message: "Data fetch successfully",
-      totalTeacher: result.length,
+      totalTeacher: teacherCount.length,
+      // totalStudent: studentCount.length
     });
   } catch (error) {
     return res.status(500).json({
@@ -121,7 +124,6 @@ const EditInformation=async(req,res)=>{
 }
 
 //update
-
 const UpdateInformation=async(req,res)=>{
   try{
      const id=req.params.id;

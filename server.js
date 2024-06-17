@@ -16,6 +16,9 @@ app.use('/admin',adminRouter)
 const teacherRouter=require('./Router/teacherRoute')
 app.use(teacherRouter);  
 
+//student route
+const studnetRouter=require('./Router/studentRoute');
+app.use(studnetRouter)
 app.use(
     cors({
       origin: "http://localhost:3000",
