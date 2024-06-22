@@ -128,10 +128,10 @@ const UpdateInformation=async(req,res)=>{
   try{
      const id=req.params.id;
      const result=await TeacherModel.findByIdAndUpdate(id,req.body,{
-      new:true
+     new:true
      });
-     return res.status(201).json({
-       status:true,
+     return res.status(200).json({
+       status:200,
        message:"Data updated successfully",
        data:result
      })

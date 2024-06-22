@@ -22,6 +22,7 @@ const createStudent = async (req, res) => {
 const getStudent = async (req, res) => {
   try {
     const getDetails = await StudentModel.find().sort({ createdAt: -1 });
+    // const getDetails = await StudentModel.find({"age": { $gt: 50}});
     return res.status(200).json({
       status: 200,
       message: "Data fetch successfully",

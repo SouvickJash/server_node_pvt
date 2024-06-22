@@ -224,7 +224,7 @@ const forgetPassword = async (req, res) => {
         from: "morekilometersmorefun@gmail.com",
         to: req.body.email,
         subject: "OTP GENERATE",
-        text: `YOU OTP IS ${otp}`,
+        text: `Your OTP is: ${otp}`,
       };
 
       mailTransporter.sendMail(mailDetails, (err) => {
