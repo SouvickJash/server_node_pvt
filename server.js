@@ -19,6 +19,11 @@ app.use(teacherRouter);
 //student route
 const studnetRouter=require('./Router/studentRoute');
 app.use(studnetRouter)
+//contact route
+
+const contactRouter=require('./Router/contactRouter');
+app.use(contactRouter)
+
 app.use(
     cors({
       origin: "http://localhost:3000",
