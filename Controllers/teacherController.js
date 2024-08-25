@@ -66,6 +66,7 @@ const createTeacher = async (req, res) => {
   }
 };
 
+
 //get api
 const getTreacher = async (req, res) => {
   try {
@@ -82,6 +83,85 @@ const getTreacher = async (req, res) => {
     });
   }
 };
+
+
+// search api
+// const searchApi = async (req, res) => {
+//   try {
+//     // const key = req.body.name;
+//     const key = req.params.name;
+//     console.log("-------",key);
+//     let q = "^" + key;
+//     const result = await TeacherModel.find({Teacher_Name:{$regex:q,$options: "i"}}).sort({ createdAt: -1 });
+//     console.log("++++++",result)
+//     if(result.length===0){
+//       return res.status(404).json({
+//         status: 404,
+//         message: "There is no data",
+//       });
+//     }
+//     else{
+//       return res.status(200).json({
+//         status: 200,
+//         message: "Data fetch successfully",
+//         Data: result,
+//       });
+//     }
+
+//   } catch (error) {
+//     return res.status(500).json({
+//       status: 500,
+//       message: "error",
+//     });
+//   }
+// };
+
+const searchApi = async (req, res) => {
+  try {
+    // Get the search key from query parameters
+    const key = req.params.name;
+    console.log("-----",key)
+    // Check if the key is provided
+    if (!key) {
+      return res.status(400).json({
+        status: 400,
+        message: "Search parameter 'name' is required",
+      });
+    }
+
+    console.log("Search key:", key);
+
+    // Use the key to build the regex query
+    let q = "^" + key;
+    const result = await TeacherModel.find({ Teacher_Name: { $regex: q, $options: "i" } }).sort({ createdAt: -1 });
+
+    console.log("Search results:", result);
+
+    // Check if the result is empty
+    if (result.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        message: "No data found",
+      });
+    }
+
+    // Return the found results
+    return res.status(200).json({
+      status: 200,
+      message: "Data fetched successfully",
+      data: result,
+    });
+
+  } catch (error) {
+    console.error("Error occurred during search:", error);
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 
 //get information(length)
 const getInformation = async (req, res) => {
@@ -170,5 +250,6 @@ module.exports = {
   EditInformation,
   UpdateInformation,
   DeleteInformation,
+  searchApi
   
 };
